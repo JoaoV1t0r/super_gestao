@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\SiteContato;
+use App\Models\SiteContato;
 
 class ContatoController extends Controller
 {
@@ -29,6 +29,6 @@ class ContatoController extends Controller
 
         //Gravação dos dados do formulário
         SiteContato::create($request->all());
-        return view('site.contato');
+        return self::contato();
     }
 }
