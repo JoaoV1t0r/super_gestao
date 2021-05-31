@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class AlterTableSiteContatosAddFkMotivoContatos extends Migration
@@ -13,7 +14,16 @@ class AlterTableSiteContatosAddFkMotivoContatos extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('site_contatos', function (Blueprint $table) {
+            $table->unsignedBigInteger(column: 'motivo_contatos_id');
+        });
+
+        DB::statement('update site_contatos set motivo_contatos_id = motivo');
+
+        Schema::table('site_contatos', function (Blueprint $table) {
+            $table->foreign('motivo_contatos_id')->references('id')->on('motivo_contatos');
+            $table->dropColumn(columns: 'motivo');
+        });
     }
 
     /**
@@ -23,6 +33,15 @@ class AlterTableSiteContatosAddFkMotivoContatos extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('site_contatos', function (Blueprint $table) {
+            $table->integer(column: 'motivo');
+            $table->dropForeign('site_contato_motivo_contatos_id_foreing');
+        });
+
+        DB::statement('update site_contatos set motivo = motivo_contatos_id');
+
+        Schema::table('site_contatos', function (Blueprint $table) {
+            $table->dropColumn('motivo_contatos_id');
+        });
     }
 }
