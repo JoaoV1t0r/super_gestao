@@ -18,15 +18,15 @@ class ContatoController extends Controller
     public static function salvar(Request $request)
     {
         $request->validate([
-            'nome' => 'required|min:3|max:40',
+            'nome' => 'required|min:3|max:40|unique:site_contatos',
             'telefone' => 'required|min:12',
-            'email' => 'required',
-            'motivo' => 'required',
+            'email' => 'email',
+            'motivo_contatos_id' => 'required',
             'mensagem' => 'required'
         ]);
 
         //Gravação dos dados do formulário
         SiteContato::create($request->all());
-        return self::contato();
+        return redirect()->route('site.index');
     }
 }

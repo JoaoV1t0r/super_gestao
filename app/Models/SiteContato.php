@@ -13,7 +13,7 @@ class SiteContato extends Model
         'nome',
         'telefone',
         'email',
-        'motivo',
+        'motivo_contatos_id',
         'mensagem'
     ];
 }
