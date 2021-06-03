@@ -33,12 +33,12 @@ class AlterTableSiteContatosAddFkMotivoContatos extends Migration
      */
     public function down()
     {
+        DB::statement('update site_contatos set motivo = motivo_contatos_id');
         Schema::table('site_contatos', function (Blueprint $table) {
             $table->integer('motivo');
             $table->dropForeign('site_contato_motivo_contatos_id_foreing');
         });
 
-        DB::statement('update site_contatos set motivo = motivo_contatos_id');
 
         Schema::table('site_contatos', function (Blueprint $table) {
             $table->dropColumn('motivo_contatos_id');
