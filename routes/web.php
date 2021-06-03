@@ -4,7 +4,7 @@ use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(middleware: LogAcessoMiddleware::class)
+Route::middleware(LogAcessoMiddleware::class)
     ->get('/', [App\Http\Controllers\PrincipalController::class, 'principal'])
     ->name('site.index');
 
