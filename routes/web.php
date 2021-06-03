@@ -20,7 +20,7 @@ Route::get('/login', function () {
 
 //ROTAS DO ADMIN
 
-Route::middleware('autenticacao')->prefix('/app')->group(function () {
+Route::middleware('autenticacao:padrao')->prefix('/app')->group(function () {
     Route::get('/clientes', function () {
         return 'Clientes';
     })->name('app.clientes');

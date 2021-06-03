@@ -14,9 +14,9 @@ class AutenticacaoMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, string $methodAuthentication)
     {
-        if (false) {
+        if ($methodAuthentication == 'padrao') {
             return $next($request);
         }
         return Response()->json(data: [

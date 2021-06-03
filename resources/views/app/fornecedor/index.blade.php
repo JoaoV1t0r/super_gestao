@@ -3,10 +3,10 @@
 
 {{-- @dd($fornecedores) --}}
 
-@if (count($fornecedores) > 0 && count($fornecedores) < 3)
+@if (count($fornecedores) > 0 && count($fornecedores) < 20)
     <h3>Existem Alguns fornecedores</h3>
 
-@elseif(count($fornecedores) >= 3)
+@elseif(count($fornecedores) >= 20)
     <h3>Existem muitos fornecedores</h3>
 @endif
 
