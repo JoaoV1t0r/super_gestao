@@ -13,6 +13,6 @@ class FornecedorController extends Controller
             'fornecedor2' => 'Fornecedor Y',
             'fornecedor3' => 'Fornecedor Z'
         ];
-        return view('app.fornecedor.index', compact('fornecedores'));
+        return view(view: 'app.fornecedor.index', data: compact('fornecedores'));
     }
 }
