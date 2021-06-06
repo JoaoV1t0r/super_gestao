@@ -12,7 +12,7 @@ class ContatoController extends Controller
     {
         $motivo_contatos = MotivoContato::all();
 
-        return view('site.contato', ['motivo_contatos' => $motivo_contatos]);
+        return view(view: 'site.contato', data: ['motivo_contatos' => $motivo_contatos]);
     }
 
     public static function salvar(Request $request)
@@ -37,6 +37,6 @@ class ContatoController extends Controller
 
         //Gravação dos dados do formulário
         SiteContato::create($request->all());
-        return redirect()->route('site.index');
+        return redirect()->route(route: 'site.index');
     }
 }

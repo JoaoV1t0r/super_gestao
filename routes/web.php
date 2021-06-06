@@ -1,33 +1,32 @@
 <?php
 
-use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
 
 // ROTAS PÚBLICAS
-Route::get('/', [App\Http\Controllers\PrincipalController::class, 'principal'])
+Route::get(uri: '/', action: [App\Http\Controllers\PrincipalController::class, 'principal'])
     ->name('site.index');
 
-Route::get('/sobre-nos', [App\Http\Controllers\SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
+Route::get(uri: '/sobre-nos', action: [App\Http\Controllers\SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
 
-Route::get('/contato', [App\Http\Controllers\ContatoController::class, 'contato'])->name('site.contato');
+Route::get(uri: '/contato', action: [App\Http\Controllers\ContatoController::class, 'contato'])->name('site.contato');
 
-Route::post('/contato', [App\Http\Controllers\ContatoController::class, 'salvar'])->name('site.contato');
+Route::post(uri: '/contato', action: [App\Http\Controllers\ContatoController::class, 'salvar'])->name('site.contato');
 
-Route::get('/login', function () {
-    return 'Login';
-})->name('site.login');
+Route::get(uri: '/login', action: [App\Http\Controllers\LoginController::class, 'index'])->name('site.login');
+
+Route::post(uri: '/login', action: [App\Http\Controllers\LoginController::class, 'autenticar'])->name('site.login');
 
 
 //ROTAS DO ADMIN
 
 Route::middleware('autenticacao:padrao')->prefix('/app')->group(function () {
-    Route::get('/clientes', function () {
+    Route::get(uri: '/clientes', action: function () {
         return 'Clientes';
     })->name('app.clientes');
 
-    Route::get('/fornecedores', [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
+    Route::get(uri: '/fornecedores', action: [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
 
-    Route::get('/produtos', function () {
+    Route::get(uri: '/produtos', action: function () {
         return 'Produtos';
     })->name('app.produtos');
 });
