@@ -14,13 +14,13 @@ class AutenticacaoMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, string $methodAuthentication)
+    public function handle(Request $request, Closure $next)
     {
-        if ($methodAuthentication == 'padrao') {
+        session_start();
+        if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
             return $next($request);
+        } else {
+            return redirect()->route('site.login', ['erro' => 2]);
         }
-        return Response()->json(data: [
-            'msg' => 'Acesso negado'
-        ], status: 403);
     }
 }

@@ -19,16 +19,16 @@ Route::post(uri: '/login', action: [App\Http\Controllers\LoginController::class,
 
 //ROTAS DO ADMIN
 
-Route::middleware('autenticacao:padrao')->prefix('/app')->group(function () {
-    Route::get(uri: '/clientes', action: function () {
-        return 'Clientes';
-    })->name('app.clientes');
+Route::middleware('autenticacao')->prefix('/app')->group(function () {
+    Route::get(uri: '/home', action: [App\Http\Controllers\HomeController::class, 'index'])->name('app.home');
 
-    Route::get(uri: '/fornecedores', action: [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
+    Route::get(uri: '/cliente', action: [App\Http\Controllers\ClienteController::class, 'index'])->name('app.cliente');
 
-    Route::get(uri: '/produtos', action: function () {
-        return 'Produtos';
-    })->name('app.produtos');
+    Route::get(uri: '/sair', action: [App\Http\Controllers\LoginController::class, 'sair'])->name('app.sair');
+
+    Route::get(uri: '/fornecedor', action: [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
+
+    Route::get(uri: '/produto', action: [App\Http\Controllers\ProdutoController::class, 'index'])->name('app.produto');
 });
 
 Route::fallback(function () {
