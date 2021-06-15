@@ -10,6 +10,11 @@ class LoginController extends Controller
     public function index(Request $request)
     {
 
+        session_start();
+        if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
+            return redirect()->route('app.cliente');
+        }
+
         $erro = $request->get('erro');
 
         return view(view: 'site.login', data: ['titulo' => 'Login', 'erro' => $erro]);
@@ -17,6 +22,11 @@ class LoginController extends Controller
 
     public function autenticar(Request $request)
     {
+        session_start();
+        if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
+            return redirect()->route('app.cliente');
+        }
+
         $regras = [
             'email' => 'email',
             'senha' => 'required'
@@ -35,9 +45,18 @@ class LoginController extends Controller
         $user = User::where('email', $email)->where('password', $password)->get()->first();
 
         if (isset($user)) {
-            echo "Usuário existe";
+            $_SESSION['nome'] = $user->name;
+            $_SESSION['email'] = $user->email;
+
+            return redirect()->route('app.cliente');
         } else {
             return redirect()->route('site.login', ['erro' => 1]);
         }
+    }
+
+    public function sair(Request $request)
+    {
+        session_destroy();
+        return redirect()->route('site.index');
     }
 }

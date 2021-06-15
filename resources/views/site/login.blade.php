@@ -44,6 +44,12 @@
                 </div>
             @endif
 
+            @if(isset($erro) && $erro == 2)
+                <div class="alert-danger my-1 rounded p-1 ">
+                    Necessário realizar login para ter acesso á página
+                </div>
+            @endif
+
             <div class="mt-2">
                 <button type="submit" class="btn btn-primary text-white btn-lg">Login</button>
             </div>
