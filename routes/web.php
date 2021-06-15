@@ -1,35 +1,34 @@
 <?php
 
-use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
 
 // ROTAS PÚBLICAS
-Route::get('/', [App\Http\Controllers\PrincipalController::class, 'principal'])
+Route::get(uri: '/', action: [App\Http\Controllers\PrincipalController::class, 'principal'])
     ->name('site.index');
 
-Route::get('/sobre-nos', [App\Http\Controllers\SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
+Route::get(uri: '/sobre-nos', action: [App\Http\Controllers\SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
 
-Route::get('/contato', [App\Http\Controllers\ContatoController::class, 'contato'])->name('site.contato');
+Route::get(uri: '/contato', action: [App\Http\Controllers\ContatoController::class, 'contato'])->name('site.contato');
 
-Route::post('/contato', [App\Http\Controllers\ContatoController::class, 'salvar'])->name('site.contato');
+Route::post(uri: '/contato', action: [App\Http\Controllers\ContatoController::class, 'salvar'])->name('site.contato');
 
-Route::get('/login', function () {
-    return 'Login';
-})->name('site.login');
+Route::get(uri: '/login', action: [App\Http\Controllers\LoginController::class, 'index'])->name('site.login');
+
+Route::post(uri: '/login', action: [App\Http\Controllers\LoginController::class, 'autenticar'])->name('site.login');
 
 
 //ROTAS DO ADMIN
 
-Route::middleware('autenticacao:padrao')->prefix('/app')->group(function () {
-    Route::get('/clientes', function () {
-        return 'Clientes';
-    })->name('app.clientes');
+Route::middleware('autenticacao')->prefix('/app')->group(function () {
+    Route::get(uri: '/home', action: [App\Http\Controllers\HomeController::class, 'index'])->name('app.home');
 
-    Route::get('/fornecedores', [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
+    Route::get(uri: '/cliente', action: [App\Http\Controllers\ClienteController::class, 'index'])->name('app.cliente');
 
-    Route::get('/produtos', function () {
-        return 'Produtos';
-    })->name('app.produtos');
+    Route::get(uri: '/sair', action: [App\Http\Controllers\LoginController::class, 'sair'])->name('app.sair');
+
+    Route::get(uri: '/fornecedor', action: [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
+
+    Route::get(uri: '/produto', action: [App\Http\Controllers\ProdutoController::class, 'index'])->name('app.produto');
 });
 
 Route::fallback(function () {
