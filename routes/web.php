@@ -26,7 +26,12 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
 
     Route::get(uri: '/sair', action: [App\Http\Controllers\LoginController::class, 'sair'])->name('app.sair');
 
-    Route::get(uri: '/fornecedor', action: [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
+    Route::prefix('/fornecedor')->group(function () {
+        Route::get(uri: '/', action: [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
+        Route::post(uri: '/listar', action: [App\Http\Controllers\FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+        Route::get(uri: '/cadastrar', action: [App\Http\Controllers\FornecedorController::class, 'viewCadastrar'])->name('app.fornecedor.cadastrar');
+        Route::post(uri: '/cadastrar', action: [App\Http\Controllers\FornecedorController::class, 'cadastrar'])->name('app.fornecedor.cadastrar');
+    });
 
     Route::get(uri: '/produto', action: [App\Http\Controllers\ProdutoController::class, 'index'])->name('app.produto');
 });
