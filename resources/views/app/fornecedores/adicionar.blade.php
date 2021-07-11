@@ -21,7 +21,10 @@
       @endif
       <form method="post" action="{{route('app.fornecedor.cadastrar')}}">
         @csrf
-        <input type="text" name="nome" class="mb-2 border border-dark" placeholder="Nome" value="{{old('nome')}}">
+
+        <input type="hidden" name="id" value="{{$fornecedor['id'] ?? ''}}">
+
+        <input type="text" name="nome" class="mb-2 border border-dark" placeholder="Nome" value="{{$fornecedor['nome'] ?? old('nome')}}">
         @if($errors->has('nome'))
           <div class="alert-danger rounded p-1 ">
             {{$errors->first('nome')}}
@@ -29,7 +32,7 @@
         @endif
         <br>
 
-        <input type="text" name="site" class="mb-2 border border-dark" placeholder="Site" value="{{old('site')}}">
+        <input type="text" name="site" class="mb-2 border border-dark" placeholder="Site" value="{{$fornecedor['site'] ?? old('site')}}">
         @if($errors->has('site'))
           <div class="alert-danger rounded p-1 ">
             {{$errors->first('site')}}
@@ -37,7 +40,7 @@
         @endif
         <br>
 
-        <input type="text" name="uf" class="mb-2 border border-dark" placeholder="UF" value="{{old('uf')}}">
+        <input type="text" name="uf" class="mb-2 border border-dark" placeholder="UF" value="{{$fornecedor['uf'] ?? old('uf')}}">
         @if($errors->has('uf'))
           <div class="alert-danger rounded p-1 ">
             {{$errors->first('uf')}}
@@ -45,7 +48,7 @@
         @endif
         <br>
 
-        <input type="email" name="email" class="mb-2 border border-dark" placeholder="E-mail" value="{{old('email')}}">
+        <input type="email" name="email" class="mb-2 border border-dark" placeholder="E-mail" value="{{$fornecedor['email'] ?? old('email')}}">
         @if($errors->has('email'))
           <div class="alert-danger rounded p-1 ">
             {{$errors->first('email')}}
@@ -53,7 +56,12 @@
         @endif
         <br>
 
-        <button type="submit" class="btn btn-outline-primary">Adicionar</button>
+        @if (isset($fornecedor))
+            <button type="submit" class="btn btn-outline-primary">Editar</button>
+        @else
+            <button type="submit" class="btn btn-outline-primary">Adicionar</button>
+        @endif
+
       </form>
     </div>
     <div class="col-6 col-md-4"></div>
