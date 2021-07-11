@@ -59,6 +59,8 @@
                     @endforeach
                 </tbody>
             </table>
+
+            {{ $fornecedores->appends($request)->links() }}
         </div>
         <div class="col-6 col-md-2"></div>
     </div>

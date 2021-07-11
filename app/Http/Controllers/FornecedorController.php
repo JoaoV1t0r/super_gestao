@@ -14,14 +14,14 @@ class FornecedorController extends Controller
 
     public function listar(Request $request)
     {
-        $params = $request->all();
-        $fornecedores = Fornecedor::where('nome', 'like', '%' . $params['nome'] . '%')
-            ->where('uf', 'like', '%' . $params['uf'] . '%')
-            ->where('site', 'like', '%' . $params['site'] . '%')
-            ->where('email', 'like', '%' . $params['email'] . '%')
-            ->get();
+        // $params = $request->all();
+        $fornecedores = Fornecedor::where('nome', 'like', '%' . $request->input('nome') . '%')
+            ->where('uf', 'like', '%' . $request->input('uf') . '%')
+            ->where('site', 'like', '%' . $request->input('site') . '%')
+            ->where('email', 'like', '%' . $request->input('email') . '%')
+            ->paginate(2);
 
-        return view('app.fornecedores.listar', ['fornecedores' => $fornecedores]);
+        return view('app.fornecedores.listar', ['fornecedores' => $fornecedores, 'request' => $request->all()]);
     }
 
     public function viewCadastrar()
