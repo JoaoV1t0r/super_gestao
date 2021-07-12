@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-// ROTAS PÚBLICAS
 Route::get(uri: '/', action: [App\Http\Controllers\PrincipalController::class, 'principal'])
     ->name('site.index');
 
@@ -26,7 +25,14 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
 
     Route::get(uri: '/sair', action: [App\Http\Controllers\LoginController::class, 'sair'])->name('app.sair');
 
-    Route::get(uri: '/fornecedor', action: [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
+    Route::get('/fornecedor', [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
+    Route::post('/fornecedor/listar', [App\Http\Controllers\FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+    Route::get('/fornecedor/listar', [App\Http\Controllers\FornecedorController::class, 'listar'])->name('app.fornecedor.listar');
+    Route::get('/fornecedor/cadastrar', [App\Http\Controllers\FornecedorController::class, 'viewCadastrar'])->name('app.fornecedor.cadastrar');
+    Route::post('/fornecedor/cadastrar', [App\Http\Controllers\FornecedorController::class, 'cadastrar'])->name('app.fornecedor.cadastrar');
+    Route::get('/fornecedor/editar/{id}', [App\Http\Controllers\FornecedorController::class, 'editar'])->name('app.fornecedor.editar');
+    Route::get('/fornecedor/excluir/{id}', [App\Http\Controllers\FornecedorController::class, 'delete'])->name('app.fornecedor.excluir');
+
 
     Route::get(uri: '/produto', action: [App\Http\Controllers\ProdutoController::class, 'index'])->name('app.produto');
 });
