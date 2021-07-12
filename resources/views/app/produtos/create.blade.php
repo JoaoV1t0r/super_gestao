@@ -34,19 +34,19 @@
         <br>
 
         <input type="text" name="descricao" class="mb-2 border border-dark" placeholder="Descrição"
-          value="{{$produto['site'] ?? old('site')}}">
-        @if($errors->has('site'))
+          value="{{$produto['descricao'] ?? old('descricao')}}">
+        @if($errors->has('descricao'))
         <div class="alert-danger rounded p-1 ">
-          {{$errors->first('site')}}
+          {{$errors->first('descricao')}}
         </div>
         @endif
         <br>
 
         <input type="number" name="peso" class="mb-2 border border-dark" placeholder="Peso"
-          value="{{$produto['uf'] ?? old('uf')}}">
-        @if($errors->has('uf'))
+          value="{{$produto['peso'] ?? old('peso')}}">
+        @if($errors->has('peso'))
         <div class="alert-danger rounded p-1 ">
-          {{$errors->first('uf')}}
+          {{$errors->first('peso')}}
         </div>
         @endif
         <br>
@@ -57,9 +57,9 @@
                 <option value="{{$unidade['id']}}">{{$unidade['descricao']}}</option>
             @endforeach
         </select>
-        @if($errors->has('email'))
+        @if($errors->has('unidade_id'))
         <div class="alert-danger rounded p-1 ">
-          {{$errors->first('email')}}
+          {{$errors->first('unidade_id')}}
         </div>
         @endif
         <br>
