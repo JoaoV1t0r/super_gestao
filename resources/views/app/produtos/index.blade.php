@@ -1,14 +1,14 @@
 @extends('app.layouts.basico')
 
-@section('title', 'Fornecedor')
+@section('title', 'Produtos')
 
 @section('conteudo')
 <div class="container">
   <div class="text-center aligne-middle p-3 mb-2" style="color: white; background-color: rgb(84, 84, 230);">
-    <p>Fornecedor - Listar</p>
+    <p>Produtos - Listar</p>
   </div>
 
-  @component('app.fornecedores.nav_fornecedor', ['function_form' => 'Pesquisar'])
+  @component('app.produtos.nav_produto')
   @endcomponent
 
   <div class="mx-auto row">
@@ -16,51 +16,51 @@
     <div class="col-sm-8 ">
       <table class="table table-dark table-hover table-sm p-2">
         <thead>
-          <tr>
+            <tr>
             <th scope="col" class="align-middle text-start">Nome</th>
-            <th scope="col" class="align-middle text-start">E-mail</th>
-            <th scope="col" class="align-middle text-start">Site</th>
-            <th scope="col" class="align-middle text-start">UF</th>
+            <th scope="col" class="align-middle text-start">Descrição</th>
+            <th scope="col" class="align-middle text-start">Peso</th>
+            <th scope="col" class="align-middle text-start">Unidade ID</th>
             <th scope="col" class="align-middle text-start"></th>
             <th scope="col" class="align-middle text-start"></th>
           </tr>
         </thead>
 
         <tbody>
-          @foreach ($fornecedores as $fornecedor)
+          @foreach ($produtos as $produto)
           <tr class="">
             <td class="align-middle text-start">
               <p>
-                {{$fornecedor['nome']}}
+                {{$produto['nome']}}
               </p>
             </td>
             <td class="align-middle text-start">
               <p>
-                {{$fornecedor['email']}}
+                {{$produto['descricao']}}
               </p>
             </td>
             <td class="align-middle text-start">
               <p>
-                {{$fornecedor['site']}}
+                {{$produto['peso']}}
               </p>
             </td>
             <td class="align-middle text-start">
               <p>
-                {{$fornecedor['uf']}}
+                {{$produto['unidade_id']}}
               </p>
             </td>
             <td>
-              <a class="btn btn-warning" href="{{route('app.fornecedor.editar', $fornecedor['id'])}}">Editar</a>
+              <a class="btn btn-warning" href="">Editar</a>
             </td>
             <td>
-              <a class="btn btn-danger" href="{{route('app.fornecedor.excluir', $fornecedor['id'])}}">Excluir</a>
+              <a class="btn btn-danger" href="">Excluir</a>
             </td>
           </tr>
           @endforeach
         </tbody>
       </table>
 
-      {{ $fornecedores->appends($request)->links() }}
+      {{ $produtos->appends($request)->links() }}
     </div>
     <div class="col-6 col-md-2"></div>
   </div>

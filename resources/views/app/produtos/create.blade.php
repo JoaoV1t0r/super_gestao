@@ -1,14 +1,14 @@
 @extends('app.layouts.basico')
 
-@section('title', 'Fornecedor')
+@section('title', 'Produto')
 
 @section('conteudo')
 <div class="container">
   <div class="text-center aligne-middle p-3 mb-2" style="color: white; background-color: rgb(84, 84, 230);">
-    <p>Fornecedor - Adicionar</p>
+    <p>Produto - Cadastrar</p>
   </div>
 
-  @component('app.fornecedores.nav_fornecedor', ['function_form' => 'Adicionar'])
+  @component('app.produtos.nav_produto')
   @endcomponent
 
   <div class="mx-auto row">
@@ -19,13 +19,13 @@
         {{$_GET['message_success']}}
       </div>
       @endif
-      <form method="post" action="{{route('app.fornecedor.cadastrar')}}">
+      <form method="post" action="{{route('produto.store')}}">
         @csrf
 
-        <input type="hidden" name="id" value="{{$fornecedor['id'] ?? ''}}">
+        <input type="hidden" name="id" value="{{$produto['id'] ?? ''}}">
 
         <input type="text" name="nome" class="mb-2 border border-dark" placeholder="Nome"
-          value="{{$fornecedor['nome'] ?? old('nome')}}">
+          value="{{$produto['nome'] ?? old('nome')}}">
         @if($errors->has('nome'))
         <div class="alert-danger rounded p-1 ">
           {{$errors->first('nome')}}
@@ -33,8 +33,8 @@
         @endif
         <br>
 
-        <input type="text" name="site" class="mb-2 border border-dark" placeholder="Site"
-          value="{{$fornecedor['site'] ?? old('site')}}">
+        <input type="text" name="descricao" class="mb-2 border border-dark" placeholder="Descrição"
+          value="{{$produto['site'] ?? old('site')}}">
         @if($errors->has('site'))
         <div class="alert-danger rounded p-1 ">
           {{$errors->first('site')}}
@@ -42,8 +42,8 @@
         @endif
         <br>
 
-        <input type="text" name="uf" class="mb-2 border border-dark" placeholder="UF"
-          value="{{$fornecedor['uf'] ?? old('uf')}}">
+        <input type="number" name="peso" class="mb-2 border border-dark" placeholder="Peso"
+          value="{{$produto['uf'] ?? old('uf')}}">
         @if($errors->has('uf'))
         <div class="alert-danger rounded p-1 ">
           {{$errors->first('uf')}}
@@ -51,8 +51,12 @@
         @endif
         <br>
 
-        <input type="email" name="email" class="mb-2 border border-dark" placeholder="E-mail"
-          value="{{$fornecedor['email'] ?? old('email')}}">
+        <select class="mb-2 border border-dark" name="unidade_id" id="">
+            <option value="">-- Selecione a Unidade de Medida --</option>
+            @foreach ($unidades as $unidade)
+                <option value="{{$unidade['id']}}">{{$unidade['descricao']}}</option>
+            @endforeach
+        </select>
         @if($errors->has('email'))
         <div class="alert-danger rounded p-1 ">
           {{$errors->first('email')}}
@@ -60,7 +64,7 @@
         @endif
         <br>
 
-        @if (isset($fornecedor))
+        @if (isset($produto))
         <button type="submit" class="btn btn-outline-primary">Editar</button>
         @else
         <button type="submit" class="btn btn-outline-primary">Adicionar</button>
@@ -68,11 +72,9 @@
 
       </form>
     </div>
-    <div class="col-6 col-md-4"></div>
+    <div cl
+ ass="col-6 col-md-4"></div>
   </div>
-
-
-
 </div>
 
 @endsection
