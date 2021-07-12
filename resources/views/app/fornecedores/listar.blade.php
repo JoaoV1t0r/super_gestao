@@ -53,7 +53,7 @@
                             <a class="btn btn-warning" href="{{route('app.fornecedor.editar', $fornecedor['id'])}}">Editar</a>
                         </td>
                         <td>
-                            <a class="btn btn-danger" href="{{route('app.fornecedor.excluir')}}">Excluir</a>
+                            <a class="btn btn-danger" href="{{route('app.fornecedor.excluir', $fornecedor['id'])}}">Excluir</a>
                         </td>
                     </tr>
                     @endforeach

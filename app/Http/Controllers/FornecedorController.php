@@ -74,4 +74,11 @@ class FornecedorController extends Controller
 
         return view('app.fornecedores.adicionar', ['fornecedor' => $fornecedor]);
     }
+
+    public function delete(Request $request, $id)
+    {
+        Fornecedor::find($id)->delete();
+
+        return redirect()->route('app.fornecedor', ['message_success' => "Fornecedor de Id $id foi deletado"]);
+    }
 }

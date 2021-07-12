@@ -31,7 +31,7 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
     Route::get('/fornecedor/cadastrar', [App\Http\Controllers\FornecedorController::class, 'viewCadastrar'])->name('app.fornecedor.cadastrar');
     Route::post('/fornecedor/cadastrar', [App\Http\Controllers\FornecedorController::class, 'cadastrar'])->name('app.fornecedor.cadastrar');
     Route::get('/fornecedor/editar/{id}', [App\Http\Controllers\FornecedorController::class, 'editar'])->name('app.fornecedor.editar');
-    Route::get('/fornecedor/excluir', [App\Http\Controllers\FornecedorController::class, 'editar'])->name('app.fornecedor.excluir');
+    Route::get('/fornecedor/excluir/{id}', [App\Http\Controllers\FornecedorController::class, 'delete'])->name('app.fornecedor.excluir');
 
 
     Route::get(uri: '/produto', action: [App\Http\Controllers\ProdutoController::class, 'index'])->name('app.produto');
