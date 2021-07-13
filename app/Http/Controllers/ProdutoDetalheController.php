@@ -67,9 +67,9 @@ class ProdutoDetalheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ProdutoDetalhe $produto_detalhe)
     {
-        //
+        dd($produto_detalhe->produto->nome);
     }
 
     /**

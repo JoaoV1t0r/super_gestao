@@ -26,6 +26,9 @@
             <th scope="col" class="align-middle text-start">Descrição</th>
             <th scope="col" class="align-middle text-start">Peso</th>
             <th scope="col" class="align-middle text-start">Unidade ID</th>
+            <th scope="col" class="align-middle text-start">Comprimento</th>
+            <th scope="col" class="align-middle text-start">Largura</th>
+            <th scope="col" class="align-middle text-start">Altura</th>
             <th scope="col" class="align-middle text-start"></th>
             <th scope="col" class="align-middle text-start"></th>
             <th scope="col" class="align-middle text-start"></th>
@@ -54,6 +57,15 @@
               <p>
                 {{$produto['unidade_id']}}
               </p>
+            </td>
+            <td class="align-middle text-center">
+              <p>{{$produto->produtoDetalhe->comprimento ?? ''}}</p>
+            </td>
+            <td class="align-middle text-center">
+              <p>{{$produto->produtoDetalhe->largura ?? ''}}</p>
+            </td>
+            <td class="align-middle text-center">
+              <p>{{$produto->produtoDetalhe->altura ?? ''}}</p>
             </td>
             <td>
               <a class="btn btn-info" href="{{route('produto.show',['produto' => $produto])}}">Exibir</a>
