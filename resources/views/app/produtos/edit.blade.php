@@ -19,8 +19,9 @@
         {{$_GET['message_success']}}
       </div>
       @endif
-      <form method="post" action="{{route('produto.store')}}">
+      <form method="post" action="{{route('produto.update', ['produto' => $produto])}}">
         @csrf
+        @method('PUT')
 
         <input type="hidden" name="id" value="{{$produto['id'] ?? ''}}">
 
@@ -54,7 +55,7 @@
         <select class="mb-2 border border-dark" name="unidade_id" id="">
             <option value="">-- Selecione a Unidade de Medida --</option>
             @foreach ($unidades as $unidade)
-                <option value="{{$unidade['id']}}">{{$unidade['descricao']}}</option>
+                <option value="{{$unidade['id']}}"  {{ ($produto['unidade_id'] ?? old('unidade_id')) == $unidade['id'] ? 'selected' : ''}}>{{$unidade['descricao']}}</option>
             @endforeach
         </select>
         @if($errors->has('unidade_id'))
@@ -65,13 +66,12 @@
         <br>
 
 
-        <button type="submit" class="btn btn-outline-primary">Adicionar</button>
+        <button type="submit" class="btn btn-outline-primary">Editar</button>
 
 
       </form>
     </div>
-    <div cl
- ass="col-6 col-md-4"></div>
+    <div class="col-6 col-md-4"></div>
   </div>
 </div>
 

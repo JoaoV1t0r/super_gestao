@@ -69,7 +69,7 @@ class ProdutoController extends Controller
      */
     public function show(Produto $produto)
     {
-        //
+        return view('app.produtos.show', ['produto' => $produto]);
     }
 
     /**
@@ -80,7 +80,8 @@ class ProdutoController extends Controller
      */
     public function edit(Produto $produto)
     {
-        //
+        $unidades = Unidade::all();
+        return view('app.produtos.edit', ['produto' => $produto, 'unidades' => $unidades]);
     }
 
     /**
@@ -92,7 +93,26 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, Produto $produto)
     {
-        //
+        $validated = [
+            'nome' => 'required|max:15',
+            'descricao' => 'required|max:255',
+            'peso' => 'required|integer',
+            'unidade_id' => 'exists:unidades,id',
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'nome.max' => "O nome deve ter no máximo 15 caracteres",
+            'descricao.max' => "A descrição deve ter no máximo 255 caracteres",
+            'peso.integer' => "O peso deve ser um inteiro",
+            'unidade_id.exists' => "A unidade informada é inválida",
+        ];
+
+        $request->validate($validated, $messages);
+
+        $new_atribbutes = $request->all();
+        $produto->update($new_atribbutes);
+
+        return redirect()->route('produto.edit', ['produto' => $produto, 'message_success' => 'Produto atualizado com sucesso.']);
     }
 
     /**
@@ -103,6 +123,7 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        //
+        $produto->delete();
+        return redirect()->route('produto.index', ['message_success' => 'Produto excluido com sucesso.']);
     }
 }
