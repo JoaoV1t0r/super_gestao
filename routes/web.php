@@ -34,7 +34,7 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
     Route::get('/fornecedor/excluir/{id}', [App\Http\Controllers\FornecedorController::class, 'delete'])->name('app.fornecedor.excluir');
 
 
-    Route::get(uri: '/produto', action: [App\Http\Controllers\ProdutoController::class, 'index'])->name('app.produto');
+    Route::resource(name: '/produto', controller: App\Http\Controllers\ProdutoController::class);
 });
 
 Route::fallback(function () {
