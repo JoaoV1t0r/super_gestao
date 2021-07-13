@@ -35,6 +35,7 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
 
 
     Route::resource(name: '/produto', controller: App\Http\Controllers\ProdutoController::class);
+    Route::resource(name: '/produto_detalhes', controller: App\Http\Controllers\ProdutoDetalheController::class);
 });
 
 Route::fallback(function () {
