@@ -17,7 +17,7 @@ class CreateProdutosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('unidade_id');
             $table->string('nome', 100);
-            $table->text('descrição')->nullable();
+            $table->text('descricao')->nullable();
             $table->integer('peso')->nullable();
             $table->float('preco_venda', 8, 2)->default(0.01);
             $table->integer('estoque_max')->default(1);
