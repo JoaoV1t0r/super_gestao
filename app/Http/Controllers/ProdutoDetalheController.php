@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProdutoDetalhe;
+use App\Models\Unidade;
 use Illuminate\Http\Request;
 
 class ProdutoDetalheController extends Controller
@@ -11,9 +13,11 @@ class ProdutoDetalheController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $produto_detalhes = ProdutoDetalhe::paginate(3);
+
+        return view('app.produto_detalhes.index', ['produto_detalhes' => $produto_detalhes, 'request' => $request->all()]);
     }
 
     /**
@@ -23,7 +27,8 @@ class ProdutoDetalheController extends Controller
      */
     public function create()
     {
-        //
+        $unidades = Unidade::all();
+        return view('app.produto_detalhes.create', ['unidades' => $unidades]);
     }
 
     /**
@@ -34,7 +39,26 @@ class ProdutoDetalheController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $atribbutes = $request->all();
+        $validated = [
+            'produto_id' => 'exists:produtos,id',
+            'comprimento' => 'required|integer',
+            'largura' => 'required|integer',
+            'altura' => 'required|integer',
+            'unidade_id' => 'exists:unidades,id',
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'integer' => "O :attribute deve ser um inteiro",
+            'unidade_id.exists' => "A unidade informada é inválida",
+            'produto_id.exists' => "O produto informada é inválida",
+        ];
+
+        $request->validate($validated, $messages);
+
+        ProdutoDetalhe::create($atribbutes);
+        // $unidades = Unidade::all();
+        return redirect()->route('produto_detalhes.create', ['message_success' => 'Detalhes do produto criado com sucesso']);
     }
 
     /**
@@ -54,9 +78,10 @@ class ProdutoDetalheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProdutoDetalhe $produto_detalhe)
     {
-        //
+        $unidades = Unidade::all();
+        return view('app.produto_detalhes.edit', ['produto_detalhe' => $produto_detalhe, 'unidades' => $unidades]);
     }
 
     /**
@@ -66,9 +91,28 @@ class ProdutoDetalheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ProdutoDetalhe $produto_detalhe)
     {
-        //
+        $new_atribbutes = $request->all();
+        $validated = [
+            'produto_id' => 'exists:produtos,id',
+            'comprimento' => 'required|integer',
+            'largura' => 'required|integer',
+            'altura' => 'required|integer',
+            'unidade_id' => 'exists:unidades,id',
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'integer' => "O :attribute deve ser um inteiro",
+            'unidade_id.exists' => "A unidade informada é inválida",
+            'produto_id.exists' => "O produto informada é inválida",
+        ];
+
+        $request->validate($validated, $messages);
+
+        $produto_detalhe->update($new_atribbutes);
+        // $unidades = Unidade::all();
+        return redirect()->route('produto_detalhes.edit', ['produto_detalhe' => $produto_detalhe, 'message_success' => 'Detalhes do produto atualizados com sucesso']);
     }
 
     /**
@@ -77,7 +121,7 @@ class ProdutoDetalheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProdutoDetalhe $produto_detalhe)
     {
         //
     }
