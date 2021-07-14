@@ -46,7 +46,6 @@ class ProdutoController extends Controller
     {
         $atribbutes = $request->all();
 
-        // return response()->json($atribbutes);
         $validated = [
             'nome' => 'required|max:15',
             'descricao' => 'required|max:255',

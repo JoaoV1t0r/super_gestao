@@ -12,7 +12,7 @@ class LoginController extends Controller
 
         session_start();
         if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
-            return redirect()->route('app.cliente');
+            return redirect()->route('cliente.index');
         }
 
         $erro = $request->get('erro');
@@ -24,7 +24,7 @@ class LoginController extends Controller
     {
         session_start();
         if (isset($_SESSION['email']) && $_SESSION['email'] != '') {
-            return redirect()->route('app.cliente');
+            return redirect()->route('cliente.index');
         }
 
         $regras = [
@@ -48,7 +48,7 @@ class LoginController extends Controller
             $_SESSION['nome'] = $user->name;
             $_SESSION['email'] = $user->email;
 
-            return redirect()->route('app.cliente');
+            return redirect()->route('cliente.index');
         } else {
             return redirect()->route('site.login', ['erro' => 1]);
         }
