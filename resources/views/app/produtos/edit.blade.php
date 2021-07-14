@@ -52,6 +52,19 @@
         @endif
         <br>
 
+        <select class="mb-2 border border-dark" name="fornecedor_id" id="">
+            <option value="">-- Selecione o Fornecedor --</option>
+            @foreach ($fornecedores as $fornecedor)
+                <option value="{{$fornecedor->id}}" {{ ($produto->fornecedor_id ??old('fornecedor_id')) == $fornecedor->id ? 'selected' : ''}}>{{$fornecedor->nome}}</option>
+            @endforeach
+        </select>
+        @if($errors->has('fornecedor_id'))
+        <div class="alert-danger rounded p-1 ">
+          {{$errors->first('fornecedor_id')}}
+        </div>
+        @endif
+        <br>
+
         <select class="mb-2 border border-dark" name="unidade_id" id="">
             <option value="">-- Selecione a Unidade de Medida --</option>
             @foreach ($unidades as $unidade)

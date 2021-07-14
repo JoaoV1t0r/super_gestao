@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fornecedor;
 use App\Models\Produto;
 use App\Models\ProdutoDetalhe;
 use App\Models\Unidade;
@@ -31,7 +32,8 @@ class ProdutoController extends Controller
     public function create()
     {
         $unidades = Unidade::all();
-        return view('app.produtos.create', ['unidades' => $unidades]);
+        $fornecedores = Fornecedor::all();
+        return view('app.produtos.create', ['unidades' => $unidades, 'fornecedores' => $fornecedores]);
     }
 
     /**
@@ -43,10 +45,13 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         $atribbutes = $request->all();
+
+        // return response()->json($atribbutes);
         $validated = [
             'nome' => 'required|max:15',
             'descricao' => 'required|max:255',
             'peso' => 'required|integer',
+            'fornecedor_id' => 'exists:fornecedores,id',
             'unidade_id' => 'exists:unidades,id',
         ];
         $messages = [
@@ -54,6 +59,7 @@ class ProdutoController extends Controller
             'nome.max' => "O nome deve ter no máximo 15 caracteres",
             'descricao.max' => "A descrição deve ter no máximo 255 caracteres",
             'peso.integer' => "O peso deve ser um inteiro",
+            'fornecedor_id.exists' => "O fornecedor informada é inválida",
             'unidade_id.exists' => "A unidade informada é inválida",
         ];
 
@@ -84,7 +90,8 @@ class ProdutoController extends Controller
     public function edit(Produto $produto)
     {
         $unidades = Unidade::all();
-        return view('app.produtos.edit', ['produto' => $produto, 'unidades' => $unidades]);
+        $fornecedores = Fornecedor::all();
+        return view('app.produtos.edit', ['produto' => $produto, 'unidades' => $unidades, 'fornecedores' => $fornecedores]);
     }
 
     /**
@@ -100,6 +107,7 @@ class ProdutoController extends Controller
             'nome' => 'required|max:15',
             'descricao' => 'required|max:255',
             'peso' => 'required|integer',
+            'fornecedor_id' => 'exists:fornecedores,id',
             'unidade_id' => 'exists:unidades,id',
         ];
         $messages = [
@@ -107,6 +115,7 @@ class ProdutoController extends Controller
             'nome.max' => "O nome deve ter no máximo 15 caracteres",
             'descricao.max' => "A descrição deve ter no máximo 255 caracteres",
             'peso.integer' => "O peso deve ser um inteiro",
+            'fornecedor_id.exists' => "O fornecedor informada é inválida",
             'unidade_id.exists' => "A unidade informada é inválida",
         ];
 
