@@ -15,7 +15,11 @@ class ProdutoDetalheController extends Controller
      */
     public function index(Request $request)
     {
-        $produto_detalhes = ProdutoDetalhe::paginate(3);
+        $produto_detalhes = ProdutoDetalhe::with(['produto'])->paginate(3);
+
+        // dd($produto_detalhes);
+        // echo $produto_detalhes[0]->toJson();
+        // exit;
 
         return view('app.produto_detalhes.index', ['produto_detalhes' => $produto_detalhes, 'request' => $request->all()]);
     }

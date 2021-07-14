@@ -16,19 +16,10 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Produto::paginate(3);
-
-        // foreach ($produtos as $key => $produto) :
-        //     $produto_detalhe = ProdutoDetalhe::where('produto_id', $produto['id'])->first();
-
-        //     if (isset($produto_detalhe)) :
-        //         $produtos[$key]['comprimento'] = $produto_detalhe->comprimento;
-        //         $produtos[$key]['largura'] = $produto_detalhe->largura;
-        //         $produtos[$key]['altura'] = $produto_detalhe->altura;
-        //     endif;
-        // endforeach;
-
+        $produtos = Produto::with(['produtoDetalhe'])->paginate(3);
         // dd($produtos[0]->produtoDetalhe->largura);
+
+        // dd($produtos);
 
         return view('app.produtos.index', ['produtos' => $produtos, 'request' => $request->all()]);
     }
