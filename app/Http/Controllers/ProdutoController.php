@@ -16,11 +16,10 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Produto::with(['produtoDetalhe'])->paginate(3);
+        $produtos = Produto::with(['produtoDetalhe', 'fornecedor'])->paginate(3);
         // dd($produtos[0]->produtoDetalhe->largura);
-
         // dd($produtos);
-
+        // return response()->json($produtos);
         return view('app.produtos.index', ['produtos' => $produtos, 'request' => $request->all()]);
     }
 

@@ -12,8 +12,8 @@
   @endcomponent
 
   <div class="mx-auto row">
-    <div class="col-6 col-md-2"></div>
-    <div class="col-sm-8 ">
+    {{-- <div class="col-1 col-md-2"></div> --}}
+    <div class="col">
         @if (isset($_GET['message_success']))
             <div class="alert alert-warning" role="alert">
                 {{$_GET['message_success']}}
@@ -24,6 +24,7 @@
             <tr>
             <th scope="col" class="align-middle text-start">Nome</th>
             <th scope="col" class="align-middle text-start">Descrição</th>
+            <th scope="col" class="align-middle text-start">Fornecedor</th>
             <th scope="col" class="align-middle text-start">Peso</th>
             <th scope="col" class="align-middle text-start">Unidade ID</th>
             <th scope="col" class="align-middle text-start">Comprimento</th>
@@ -46,6 +47,11 @@
             <td class="align-middle text-start">
               <p>
                 {{$produto['descricao']}}
+              </p>
+            </td>
+            <td class="align-middle text-start">
+              <p>
+                {{$produto->fornecedor->nome}}
               </p>
             </td>
             <td class="align-middle text-start">
@@ -87,7 +93,7 @@
 
       {{ $produtos->appends($request)->links() }}
     </div>
-    <div class="col-6 col-md-2"></div>
+    {{-- <div class="col-2 col-md-2"></div> --}}
   </div>
 </div>
 

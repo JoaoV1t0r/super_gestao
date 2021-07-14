@@ -20,4 +20,9 @@ class Produto extends Model
     {
         return $this->hasOne(ProdutoDetalhe::class);
     }
+
+    public function fornecedor()
+    {
+        return $this->belongsTo(Fornecedor::class);
+    }
 }
