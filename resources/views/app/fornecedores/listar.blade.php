@@ -12,8 +12,7 @@
   @endcomponent
 
   <div class="mx-auto row">
-    <div class="col-6 col-md-2"></div>
-    <div class="col-sm-8 ">
+    <div class="col ">
       <table class="table table-dark table-hover table-sm p-2">
         <thead>
           <tr>
@@ -56,13 +55,49 @@
               <a class="btn btn-danger" href="{{route('app.fornecedor.excluir', $fornecedor['id'])}}">Excluir</a>
             </td>
           </tr>
+          <tr>
+              <td colspan="9">
+                  <p>Lista de Produtos</p>
+                  <table class="border  border-3 table table-dark table-hover table-sm">
+                    <thead>
+                        <th scope="col" class="align-middle text-start">ID</th>
+                        <th scope="col" class="align-middle text-start">Nome</th>
+                        <th scope="col" class="align-middle text-start">Descrição</th>
+                        <th scope="col" class="align-middle text-start"></th>
+                    </thead>
+                    <tbody>
+                        @foreach ($fornecedor->produtos as $produto)
+                            <tr>
+                                <td class="align-middle text-start">
+                                    <p>
+                                        {{$produto->id}}
+                                    </p>
+                                </td>
+                                <td class="align-middle text-start">
+                                    <p>
+                                        {{$produto->nome}}
+                                    </p>
+                                </td>
+                                <td class="align-middle text-start">
+                                    <p>
+                                        {{$produto->descricao}}
+                                    </p>
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" href="{{route('produto.show', $produto->id)}}">Exibir</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                  </table>
+              </td>
+          </tr>
           @endforeach
         </tbody>
       </table>
 
       {{ $fornecedores->appends($request)->links() }}
     </div>
-    <div class="col-6 col-md-2"></div>
   </div>
 </div>
 
