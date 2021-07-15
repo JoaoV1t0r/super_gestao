@@ -50,10 +50,13 @@ class PedidoProdutoController extends Controller
 
         $produto_id = $request->produto_id;
 
-        PedidoProduto::create([
-            'pedido_id' => $pedido->id,
-            'produto_id' => $produto_id
-        ]);
+        // PedidoProduto::create([
+        //     'pedido_id' => $pedido->id,
+        //     'produto_id' => $produto_id,
+        //     'quantidade' => $request->quantidade ?? 1
+        // ]);
+
+        $pedido->produtos()->attach($produto_id, ['quantidade' => $request->quantidade ?? 1]);
 
         return redirect()->route('pedido_produto.create', ['pedido' => $pedido]);
     }

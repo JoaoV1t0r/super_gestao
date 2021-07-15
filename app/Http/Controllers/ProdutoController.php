@@ -17,7 +17,7 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Produto::with(['produtoDetalhe', 'fornecedor'])->paginate(3);
+        $produtos = Produto::with(['produtoDetalhe', 'fornecedor', 'pedidos'])->paginate(3);
         // dd($produtos[0]->produtoDetalhe->largura);
         // dd($produtos);
         // return response()->json($produtos);

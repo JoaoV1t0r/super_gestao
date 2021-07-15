@@ -17,6 +17,7 @@ class CreatePedidoProdutosTable extends Migration
             $table->id();
             $table->foreignId('pedido_id')->constrained('pedidos');
             $table->foreignId('produto_id')->constrained('produtos');
+            $table->bigInteger('quantidade')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

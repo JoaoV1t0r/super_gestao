@@ -25,6 +25,7 @@
             <th scope="col" class="align-middle text-start">Nome</th>
             <th scope="col" class="align-middle text-start">Descrição</th>
             <th scope="col" class="align-middle text-start">Fornecedor</th>
+            <th scope="col" class="align-middle text-start">Qnt Vendida</th>
             <th scope="col" class="align-middle text-start">Peso</th>
             <th scope="col" class="align-middle text-start">Unidade ID</th>
             <th scope="col" class="align-middle text-start">Comprimento</th>
@@ -38,55 +39,60 @@
 
         <tbody>
           @foreach ($produtos as $produto)
-          <tr class="">
-            <td class="align-middle text-start">
-              <p>
-                {{$produto['nome']}}
-              </p>
-            </td>
-            <td class="align-middle text-start">
-              <p>
-                {{$produto['descricao']}}
-              </p>
-            </td>
-            <td class="align-middle text-start">
-              <p>
-                {{$produto->fornecedor->nome}}
-              </p>
-            </td>
-            <td class="align-middle text-start">
-              <p>
-                {{$produto['peso']}}
-              </p>
-            </td>
-            <td class="align-middle text-center">
-              <p>
-                {{$produto['unidade_id']}}
-              </p>
-            </td>
-            <td class="align-middle text-center">
-              <p>{{$produto->produtoDetalhe->comprimento ?? ''}}</p>
-            </td>
-            <td class="align-middle text-center">
-              <p>{{$produto->produtoDetalhe->largura ?? ''}}</p>
-            </td>
-            <td class="align-middle text-center">
-              <p>{{$produto->produtoDetalhe->altura ?? ''}}</p>
-            </td>
-            <td>
-              <a class="btn btn-info" href="{{route('produto.show',['produto' => $produto])}}">Exibir</a>
-            </td>
-            <td>
-              <a class="btn btn-warning" href="{{route('produto.edit',['produto' => $produto])}}">Editar</a>
-            </td>
-            <td>
-                <form id="form_{{$produto['id']}}" method="post" action="{{route('produto.destroy',['produto' => $produto] ) }}">
-                    @csrf
-                    @method('DELETE')
-                    <a class="btn btn-danger" href="#" onclick="document.getElementById('form_{{$produto['id']}}').submit()">Excluir</a>
-                </form>
-            </td>
-          </tr>
+            <tr class="">
+                <td class="align-middle text-start">
+                    <p>
+                        {{$produto['nome']}}
+                    </p>
+                </td>
+                <td class="align-middle text-start">
+                    <p>
+                        {{$produto['descricao']}}
+                    </p>
+                </td>
+                <td class="align-middle text-start">
+                    <p>
+                        {{$produto->fornecedor->nome}}
+                    </p>
+                </td>
+                <td class="align-middle text-start">
+                    <p>
+                        {{count($produto->pedidos)}}
+                    </p>
+                </td>
+                <td class="align-middle text-start">
+                    <p>
+                        {{$produto['peso']}}
+                    </p>
+                </td>
+                <td class="align-middle text-center">
+                    <p>
+                        {{$produto['unidade_id']}}
+                    </p>
+                </td>
+                <td class="align-middle text-center">
+                    <p>{{$produto->produtoDetalhe->comprimento ?? ''}}</p>
+                </td>
+                <td class="align-middle text-center">
+                    <p>{{$produto->produtoDetalhe->largura ?? ''}}</p>
+                </td>
+                <td class="align-middle text-center">
+                    <p>{{$produto->produtoDetalhe->altura ?? ''}}</p>
+                </td>
+                <td>
+                    <a class="btn btn-info" href="{{route('produto.show',['produto' => $produto])}}">Exibir</a>
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="{{route('produto.edit',['produto' => $produto])}}">Editar</a>
+                </td>
+                <td>
+                    <form id="form_{{$produto['id']}}" method="post" action="{{route('produto.destroy',['produto' => $produto] ) }}">
+                        @csrf
+                        @method('DELETE')
+                        <a class="btn btn-danger" href="#" onclick="document.getElementById('form_{{$produto['id']}}').submit()">Excluir</a>
+                    </form>
+                </td>
+            </tr>
           @endforeach
         </tbody>
       </table>

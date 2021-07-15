@@ -12,9 +12,9 @@
     <div class="col-6 col-md-4"></div>
     <div class="col-sm-4 mt-3">
       @if (isset($_GET['message_success']))
-      <div class="alert alert-success" role="alert">
-        {{$_GET['message_success']}}
-      </div>
+        <div class="alert alert-success" role="alert">
+            {{$_GET['message_success']}}
+        </div>
       @endif
       <h4 class="text-dark">Detalhes do Pedido</h4>
       <p class="text-dark">ID Pedido: <strong>{{$pedido->id}}</strong></p>
@@ -30,11 +30,12 @@
                         <th scope="col" class="align-middle text-center">ID Produto</th>
                         <th scope="col" class="align-middle text-center">Nome</th>
                         <th scope="col" class="align-middle text-center">Descrição</th>
+                        <th scope="col" class="align-middle text-center">Quantidade</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                        @foreach ($pedido->produtos as $produto)
+                        @foreach ($pedido->produtos as $key=> $produto)
                             <tr class="">
                                 <td class="align-middle text-center">
                                     <p>
@@ -51,11 +52,24 @@
                                         {{$produto->descricao}}
                                     </p>
                                 </td>
+                                <td class="align-middle text-center">
+                                    <p>
+                                        {{$produto->pivot->quantidade}}
+                                    </p>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-            @endif
+        @endif
+
+        <input type="number" name="quantidade" class="mb-2 border border-dark" placeholder="Quantidade" value="{{old('quantidade') ?? 1}}">
+        @if($errors->has('quantidade'))
+            <div class="alert-danger rounded p-1 ">
+                {{$errors->first('quantidade')}}
+            </div>
+        @endif
+        <br>
         <select class="mb-2 border border-dark" name="produto_id" id="">
             <option value="">-- Selecione o Produto --</option>
             @foreach ($produtos as $produto)
