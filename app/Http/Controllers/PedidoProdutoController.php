@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use App\Models\PedidoProduto;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 
 class PedidoProdutoController extends Controller
@@ -22,9 +24,11 @@ class PedidoProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, Pedido $pedido)
     {
-        //
+        // return response()->json($pedido->produtos);
+        $produtos = Produto::all();
+        return view('app.pedido_produto.create', ['pedido' => $pedido, 'produtos' => $produtos]);
     }
 
     /**
@@ -33,9 +37,25 @@ class PedidoProdutoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Pedido $pedido)
     {
-        //
+        $validated = [
+            'produto_id' => 'exists:produtos,id',
+        ];
+        $messages = [
+            'produto_id.exists' => "O produto informada é inválida",
+        ];
+
+        $request->validate($validated, $messages);
+
+        $produto_id = $request->produto_id;
+
+        PedidoProduto::create([
+            'pedido_id' => $pedido->id,
+            'produto_id' => $produto_id
+        ]);
+
+        return redirect()->route('pedido_produto.create', ['pedido' => $pedido]);
     }
 
     /**

@@ -21,12 +21,13 @@
       <table class="table table-dark table-hover table-sm p-2">
         <thead>
             <tr>
-            <th scope="col" class="align-middle text-center">ID</th>
-            <th scope="col" class="align-middle text-center">Cliente</th>
-            <th scope="col" class="align-middle text-start"></th>
-            <th scope="col" class="align-middle text-start"></th>
-            <th scope="col" class="align-middle text-start"></th>
-          </tr>
+                <th scope="col" class="align-middle text-center">ID</th>
+                <th scope="col" class="align-middle text-center">Cliente</th>
+                <th scope="col" class="align-middle text-start"></th>
+                <th scope="col" class="align-middle text-start"></th>
+                <th scope="col" class="align-middle text-start"></th>
+                <th scope="col" class="align-middle text-start"></th>
+            </tr>
         </thead>
 
         <tbody>
@@ -41,6 +42,9 @@
                     <p>
                         {{$pedido->cliente->nome}}
                     </p>
+                </td>
+                <td class="align-middle text-center">
+                    <a class="btn btn-info" href="{{route('pedido_produto.create',['pedido' => $pedido])}}">Adicionar Produtos</a>
                 </td>
                 <td class="align-middle text-center">
                     <a class="btn btn-info" href="{{route('pedido.show',['pedido' => $pedido])}}">Exibir</a>
