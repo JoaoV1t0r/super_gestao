@@ -20,9 +20,6 @@ Route::post(uri: '/login', action: [App\Http\Controllers\LoginController::class,
 
 Route::middleware('autenticacao')->prefix('/app')->group(function () {
     Route::get(uri: '/home', action: [App\Http\Controllers\HomeController::class, 'index'])->name('app.home');
-
-    Route::get(uri: '/cliente', action: [App\Http\Controllers\ClienteController::class, 'index'])->name('app.cliente');
-
     Route::get(uri: '/sair', action: [App\Http\Controllers\LoginController::class, 'sair'])->name('app.sair');
 
     Route::get('/fornecedor', [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedor');
@@ -34,7 +31,14 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
     Route::get('/fornecedor/excluir/{id}', [App\Http\Controllers\FornecedorController::class, 'delete'])->name('app.fornecedor.excluir');
 
 
+    Route::resource(name: '/produto_detalhes', controller: App\Http\Controllers\ProdutoDetalheController::class);
+
+    // Route::resource(name: '/pedido_produto', controller: App\Http\Controllers\PedidoProdutoController::class);
+    Route::resource(name: '/pedido', controller: App\Http\Controllers\PedidoController::class);
+    Route::resource(name: '/cliente', controller: App\Http\Controllers\ClienteController::class);
     Route::resource(name: '/produto', controller: App\Http\Controllers\ProdutoController::class);
+    Route::get(uri: '/pedido_produtos/create/{pedido}', action: [App\Http\Controllers\PedidoProdutoController::class, 'create'])->name('pedido_produto.create');
+    Route::post(uri: '/pedido_produtos/store/{pedido}', action: [App\Http\Controllers\PedidoProdutoController::class, 'store'])->name('pedido_produto.store');
 });
 
 Route::fallback(function () {
