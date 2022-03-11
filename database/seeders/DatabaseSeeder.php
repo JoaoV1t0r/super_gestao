@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\Models\MotivoContato::factory(10)->create();
         \App\Models\SiteContato::factory(10)->create();
         \App\Models\Fornecedor::factory(10)->create();
-        \App\Models\MotivoContato::factory(10)->create();
     }
 }
